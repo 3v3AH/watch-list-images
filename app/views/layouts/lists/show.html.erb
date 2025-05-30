@@ -1,0 +1,18 @@
+<h1><%= @list.name %></h1>
+
+<h2>Bookmarks</h2>
+<ul>
+  <% @list.bookmarks.each do |bookmark| %>
+    <li>
+      <strong><%= bookmark.movie.title %></strong> - <%= bookmark.comment %>
+      <%= button_to "Delete", bookmark, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger" %>
+    </li>
+  <% end %>
+</ul>
+
+<h3>Add a Movie</h3>
+<%= simple_form_for [@list, @bookmark] do |f| %>
+  <%= f.input :movie_id, collection: Movie.all, prompt: "Select a movie" %>
+  <%= f.input :comment %>
+  <%= f.submit %>
+<% end %>
